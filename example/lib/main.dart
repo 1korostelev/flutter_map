@@ -7,6 +7,7 @@ import './pages/esri.dart';
 import './pages/home.dart';
 import './pages/live_location.dart';
 import './pages/map_controller.dart';
+import './pages/map_inside_listview.dart';
 import './pages/marker_anchor.dart';
 import './pages/moving_markers.dart';
 import './pages/offline_map.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
         CustomCrsPage.route: (context) => CustomCrsPage(),
         LiveLocationPage.route: (context) => LiveLocationPage(),
         TileLoadingErrorHandle.route: (context) => TileLoadingErrorHandle(),
+        MapInsideListViewPage.route: (context) => MapInsideListViewPage()
       },
     );
   }

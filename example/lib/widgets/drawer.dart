@@ -7,6 +7,7 @@ import '../pages/esri.dart';
 import '../pages/home.dart';
 import '../pages/live_location.dart';
 import '../pages/map_controller.dart';
+import '../pages/map_inside_listview.dart';
 import '../pages/marker_anchor.dart';
 import '../pages/moving_markers.dart';
 import '../pages/offline_map.dart';
@@ -101,6 +102,12 @@ Drawer buildDrawer(BuildContext context, String currentRoute) {
           context,
           const Text('Marker Anchors'),
           MarkerAnchorPage.route,
+          currentRoute,
+        ),
+        _buildMenuItem(
+          context,
+          const Text('Map inside ListView'),
+          MapInsideListViewPage.route,
           currentRoute,
         ),
         _buildMenuItem(

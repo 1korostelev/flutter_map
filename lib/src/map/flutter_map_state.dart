@@ -112,7 +112,7 @@ class FlutterMapState extends MapGestureMixin {
 
       Widget mapRoot;
 
-      GestureArenaTeam mapGestureTeam = GestureArenaTeam();
+      var mapGestureTeam = GestureArenaTeam();
 
       var gestureRecognizers = <Type, GestureRecognizerFactory>{
         ScaleGestureRecognizer:
