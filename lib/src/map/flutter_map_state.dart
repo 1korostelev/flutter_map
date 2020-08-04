@@ -114,45 +114,54 @@ class FlutterMapState extends MapGestureMixin {
 
       GestureArenaTeam mapGestureTeam = GestureArenaTeam();
 
-      Widget gestureDetector = RawGestureDetector(
-        gestures: <Type, GestureRecognizerFactory>{
-          ScaleGestureRecognizer:
-              GestureRecognizerFactoryWithHandlers<ScaleGestureRecognizer>(
-                  () => ScaleGestureRecognizer(),
-                  (ScaleGestureRecognizer instance) {
-            mapGestureTeam.captain = instance;
+      var gestureRecognizers = <Type, GestureRecognizerFactory>{
+        ScaleGestureRecognizer:
+            GestureRecognizerFactoryWithHandlers<ScaleGestureRecognizer>(
+                () => ScaleGestureRecognizer(),
+                (ScaleGestureRecognizer instance) {
+          mapGestureTeam.captain = instance;
+          instance.team ??= mapGestureTeam;
+          instance
+            ..onStart = handleScaleStart
+            ..onUpdate = handleScaleUpdate
+            ..onEnd = handleScaleEnd;
+        }),
+        TapGestureRecognizer:
+            GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
+          () => TapGestureRecognizer(),
+          (TapGestureRecognizer instance) {
             instance.team ??= mapGestureTeam;
             instance
-              ..onStart = handleScaleStart
-              ..onUpdate = handleScaleUpdate
-              ..onEnd = handleScaleEnd;
-          }),
-          TapGestureRecognizer:
-              GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
-            () => TapGestureRecognizer(),
-            (TapGestureRecognizer instance) {
-              instance.team ??= mapGestureTeam;
-              instance
-                ..onTapDown = _positionedTapController.onTapDown
-                ..onTapUp = handleOnTapUp
-                ..onTap = _positionedTapController.onTap;
-            },
-          ),
-          LongPressGestureRecognizer:
-              GestureRecognizerFactoryWithHandlers<LongPressGestureRecognizer>(
-                  () => LongPressGestureRecognizer(),
-                  (LongPressGestureRecognizer instance) {
-            instance.team ??= mapGestureTeam;
-            instance.onLongPress = _positionedTapController.onLongPress;
-          }),
-          VerticalDragGestureRecognizer: GestureRecognizerFactoryWithHandlers<
-                  VerticalDragGestureRecognizer>(
-              () => VerticalDragGestureRecognizer(),
-              (VerticalDragGestureRecognizer instance) {
-            instance.team ??= mapGestureTeam;
-            instance.onUpdate = (_) {};
-          })
-        },
+              ..onTapDown = _positionedTapController.onTapDown
+              ..onTapUp = handleOnTapUp
+              ..onTap = _positionedTapController.onTap;
+          },
+        ),
+        LongPressGestureRecognizer:
+            GestureRecognizerFactoryWithHandlers<LongPressGestureRecognizer>(
+                () => LongPressGestureRecognizer(),
+                (LongPressGestureRecognizer instance) {
+          instance.team ??= mapGestureTeam;
+          instance.onLongPress = _positionedTapController.onLongPress;
+        }),
+        VerticalDragGestureRecognizer:
+            GestureRecognizerFactoryWithHandlers<VerticalDragGestureRecognizer>(
+                () => VerticalDragGestureRecognizer(),
+                (VerticalDragGestureRecognizer instance) {
+          instance.team ??= mapGestureTeam;
+          instance.onUpdate = (_) {};
+        }),
+        HorizontalDragGestureRecognizer: GestureRecognizerFactoryWithHandlers<
+                HorizontalDragGestureRecognizer>(
+            () => HorizontalDragGestureRecognizer(),
+            (HorizontalDragGestureRecognizer instance) {
+          instance.team ??= mapGestureTeam;
+          instance.onUpdate = (_) {};
+        })
+      };
+
+      Widget gestureDetector = RawGestureDetector(
+        gestures: gestureRecognizers,
         child: layerStack,
       );
 
