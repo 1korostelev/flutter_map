@@ -130,7 +130,6 @@ class FlutterMapState extends MapGestureMixin {
             GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
           () => TapGestureRecognizer(),
           (TapGestureRecognizer instance) {
-            instance.team ??= mapGestureTeam;
             instance
               ..onTapDown = _positionedTapController.onTapDown
               ..onTapUp = handleOnTapUp
@@ -141,7 +140,6 @@ class FlutterMapState extends MapGestureMixin {
             GestureRecognizerFactoryWithHandlers<LongPressGestureRecognizer>(
                 () => LongPressGestureRecognizer(),
                 (LongPressGestureRecognizer instance) {
-          instance.team ??= mapGestureTeam;
           instance.onLongPress = _positionedTapController.onLongPress;
         }),
         VerticalDragGestureRecognizer:
